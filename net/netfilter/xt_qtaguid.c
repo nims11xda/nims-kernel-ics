@@ -813,7 +813,7 @@ static int iface_stat_all_proc_read(char *page, char **num_items_returned,
       continue;
 
     if (iface_entry->active) {
-      stats = dev_get_stats(iface_entry->net_dev,
+      stats = dev_get_stats_ics(iface_entry->net_dev,
                 &dev_stats);
     } else {
       stats = &no_dev_stats;
