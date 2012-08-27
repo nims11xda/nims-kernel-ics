@@ -889,17 +889,15 @@ static void _iface_stat_set_active(struct iface_stat *entry,
   if (activate) {
     entry->net_dev = net_dev;
     entry->active = true;
-/*    IF_DEBUG("qtaguid: %s(%s): "
-       "enable tracking. rfcnt=%d\n", __func__,
-       entry->ifname,
-       percpu_read(*net_dev->pcpu_refcnt));*/
+    IF_DEBUG("qtaguid: %s(%s): "
+       "enable tracking.\n", __func__,
+       entry->ifname);
   } else {
     entry->active = false;
     entry->net_dev = NULL;
-/*    IF_DEBUG("qtaguid: %s(%s): "
-       "disable tracking. rfcnt=%d\n", __func__,
-       entry->ifname,
-       percpu_read(*net_dev->pcpu_refcnt));*/
+    IF_DEBUG("qtaguid: %s(%s): "
+       "disable tracking.\n", __func__,
+       entry->ifname);
 
   }
 }
@@ -1347,8 +1345,8 @@ static int iface_netdev_event_handler(struct notifier_block *nb,
     return NOTIFY_DONE;
 
   IF_DEBUG("qtaguid: iface_stat: netdev_event(): "
-     "ev=0x%lx/%s netdev=%p->name=%s\n",
-     event, netdev_evt_str(event), dev, dev ? dev->name : "");
+     "ev=0x%lx netdev=%p->name=%s\n",
+     event, dev, dev ? dev->name : "");
 
   switch (event) {
   case NETDEV_UP:
@@ -1374,8 +1372,8 @@ static int iface_inet6addr_event_handler(struct notifier_block *nb,
     return NOTIFY_DONE;
 
   IF_DEBUG("qtaguid: iface_stat: inet6addr_event(): "
-     "ev=0x%lx/%s ifa=%p\n",
-     event, netdev_evt_str(event), ifa);
+     "ev=0x%lx ifa=%p\n",
+     event, ifa);
 
   switch (event) {
   case NETDEV_UP:
@@ -1405,8 +1403,8 @@ static int iface_inetaddr_event_handler(struct notifier_block *nb,
     return NOTIFY_DONE;
 
   IF_DEBUG("qtaguid: iface_stat: inetaddr_event(): "
-     "ev=0x%lx/%s ifa=%p\n",
-     event, netdev_evt_str(event), ifa);
+     "ev=0x%lx ifa=%p\n",
+     event, ifa);
 
   switch (event) {
   case NETDEV_UP:
@@ -1729,18 +1727,18 @@ static void prdebug_full_state(int indent_level, const char *fmt, ...)
   va_end(args);
 
   spin_lock_bh(&sock_tag_list_lock);
-  prdebug_sock_tag_tree(indent_level, &sock_tag_tree);
+  //prdebug_sock_tag_tree(indent_level, &sock_tag_tree);
   spin_unlock_bh(&sock_tag_list_lock);
 
   spin_lock_bh(&sock_tag_list_lock);
   spin_lock_bh(&uid_tag_data_tree_lock);
-  prdebug_uid_tag_data_tree(indent_level, &uid_tag_data_tree);
-  prdebug_proc_qtu_data_tree(indent_level, &proc_qtu_data_tree);
+  //prdebug_uid_tag_data_tree(indent_level, &uid_tag_data_tree);
+  //prdebug_proc_qtu_data_tree(indent_level, &proc_qtu_data_tree);
   spin_unlock_bh(&uid_tag_data_tree_lock);
   spin_unlock_bh(&sock_tag_list_lock);
 
   spin_lock_bh(&iface_stat_list_lock);
-  prdebug_iface_stat_list(indent_level, &iface_stat_list);
+  //prdebug_iface_stat_list(indent_level, &iface_stat_list);
   spin_unlock_bh(&iface_stat_list_lock);
 
   pr_debug("qtaguid: %s(): }\n", __func__);
